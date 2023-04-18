@@ -15,6 +15,7 @@ export default class Game extends Phaser.Scene {
     this.load.image("sky", "/assets/images/Cielo.png");
     this.load.image("platform", "/assets/images/platform.png");
     this.load.image("Ninja", "/assets/images/Ninja.png");
+    this.load.image("triangulo", "/assets/images/Triangulo.png");
   }
 
   create() {
@@ -29,7 +30,22 @@ export default class Game extends Phaser.Scene {
       .refreshBody();
 
     this.physics.add.collider(this.player, this.platformasPropias);
+    this.shapeGroup = this.physics.add.group();
+
+    this.shapeGroup = this.shapeGroup.create(340, 100, "triangulo");
+    this.physics.add.collider(this.platformasPropias, this.shapeGroup);
+    this.physics.add.overlap(
+      this.player,
+      this.shapeGroup,
+      this.collectShape,
+      null,
+      this
+    );
   }
 
   update() {}
+  collectShape(player, shapeGroup) {
+    console.log("figura recolectada");
+    shapeGroup.disableBody(true, true);
+  }
 }
