@@ -1,3 +1,4 @@
+import { PLAYER_MOVEMENTS } from "../scenes/util.js";
 export default class Game extends Phaser.Scene {
   constructor() {
     super("game");
@@ -41,9 +42,21 @@ export default class Game extends Phaser.Scene {
       null,
       this
     );
+    this.cursors = this.input.keyboard.createCursorKeys();
   }
 
-  update() {}
+  update() {
+    if (this.cursors.left.isDown) {
+      this.player.setVelocityX(-PLAYER_MOVEMENTS.x);
+    } else if (this.cursors.right.isDown) {
+      this.player.setVelocityX(PLAYER_MOVEMENTS.x);
+    } else {
+      this.player.setVelocityX(0);
+    }
+    if (this.cursors.up.isDown && this.player.body.touching.down) {
+      this.player.setVelocityY(-PLAYER_MOVEMENTS.y);
+    }
+  }
   collectShape(player, shapeGroup) {
     console.log("figura recolectada");
     shapeGroup.disableBody(true, true);
