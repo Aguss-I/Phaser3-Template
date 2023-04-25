@@ -3,10 +3,10 @@ const PLAYER_MOVEMENTS = {
   y: 300,
 };
 
-const SHAPE_DELAY = 1000;
+const SHAPE_DELAY = 3000;
 
-const TRIANGULO = "triangulo";
-const CUADRADO = "cuadrado";
-const ROMBO = "rombo";
+const TRIANGULO = "Triangulo";
+const CUADRADO = "Cuadrado";
+const ROMBO = "Rombo";
 const SHAPES = [TRIANGULO, CUADRADO, ROMBO];
 export { PLAYER_MOVEMENTS, SHAPE_DELAY, SHAPES, TRIANGULO, CUADRADO, ROMBO };

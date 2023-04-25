@@ -12,11 +12,11 @@ export default class Game extends Phaser.Scene {
   }
 
   init() {
-    let shapesRecolected = [
-      { type: "triangulo", count: 0 },
-      { type: "rombo", count: 0 },
-      { type: "cuadrado", count: 0 },
-    ];
+    this.shapesRecolected = {
+      ["Triangulo"]: { count: 0, score: 10 },
+      ["Cuadrado"]: { count: 0, score: 20 },
+      ["Rombo"]: { count: 0, score: 30 },
+    };
   }
 
   preload() {
@@ -53,7 +53,7 @@ export default class Game extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.time.addEvent({
-      delay: 1000,
+      delay: 3000,
       callback: this.addShape,
       callbackScope: this,
       loop: true,
@@ -75,6 +75,9 @@ export default class Game extends Phaser.Scene {
   collectShape(player, shapeGroup) {
     console.log("figura recolectada");
     shapeGroup.disableBody(true, true);
+    this.shapeName = shapeGroup.texture.key;
+    console.log(this.shapesRecolected);
+    this.shapesRecolected[this.shapeName].count++;
   }
   addShape() {
     const randomShape = Phaser.Math.RND.pick(SHAPES);
