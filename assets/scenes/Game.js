@@ -1,4 +1,11 @@
-import { PLAYER_MOVEMENTS } from "../scenes/util.js";
+import {
+  PLAYER_MOVEMENTS,
+  SHAPE_DELAY,
+  SHAPES,
+  TRIANGULO,
+  CUADRADO,
+  ROMBO,
+} from "../scenes/util.js";
 export default class Game extends Phaser.Scene {
   constructor() {
     super("game");
@@ -16,7 +23,9 @@ export default class Game extends Phaser.Scene {
     this.load.image("sky", "/assets/images/Cielo.png");
     this.load.image("platform", "/assets/images/platform.png");
     this.load.image("Ninja", "/assets/images/Ninja.png");
-    this.load.image("triangulo", "/assets/images/Triangulo.png");
+    this.load.image(TRIANGULO, "/assets/images/Triangulo.png");
+    this.load.image(CUADRADO, "/assets/images/Cuadrado.png");
+    this.load.image(ROMBO, "/assets/images/Rombo.png");
   }
 
   create() {
@@ -33,7 +42,6 @@ export default class Game extends Phaser.Scene {
     this.physics.add.collider(this.player, this.platformasPropias);
     this.shapeGroup = this.physics.add.group();
 
-    this.shapeGroup = this.shapeGroup.create(340, 100, "triangulo");
     this.physics.add.collider(this.platformasPropias, this.shapeGroup);
     this.physics.add.overlap(
       this.player,
@@ -43,6 +51,13 @@ export default class Game extends Phaser.Scene {
       this
     );
     this.cursors = this.input.keyboard.createCursorKeys();
+
+    this.time.addEvent({
+      delay: 1000,
+      callback: this.addShape,
+      callbackScope: this,
+      loop: true,
+    });
   }
 
   update() {
@@ -60,5 +75,11 @@ export default class Game extends Phaser.Scene {
   collectShape(player, shapeGroup) {
     console.log("figura recolectada");
     shapeGroup.disableBody(true, true);
+  }
+  addShape() {
+    const randomShape = Phaser.Math.RND.pick(SHAPES);
+    const randomX = Phaser.Math.RND.between(0, 800);
+    this.shapeGroup.create(randomX, 0, randomShape);
+    console.log("shape is added", randomX, randomShape);
   }
 }
