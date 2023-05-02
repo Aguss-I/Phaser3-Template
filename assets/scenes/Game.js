@@ -12,11 +12,14 @@ export default class Game extends Phaser.Scene {
   }
 
   init() {
-    let shapesRecolected = [
-      { type: "triangulo", count: 0 },
-      { type: "rombo", count: 0 },
-      { type: "cuadrado", count: 0 },
-    ];
+    this.shapesRecolected = {
+      ["Triangulo"]: { count: 0, score: 10 },
+      ["Cuadrado"]: { count: 0, score: 20 },
+      ["Rombo"]: { count: 0, score: 30 },
+    };
+    this.isWinner = false;
+    this.isGameOver = false;
+    this.timer = 30;
   }
 
   preload() {
@@ -53,14 +56,32 @@ export default class Game extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.time.addEvent({
-      delay: 1000,
+      delay: SHAPE_DELAY,
       callback: this.addShape,
       callbackScope: this,
       loop: true,
     });
+    this.scoreText = this.add.text(16, 16, "T:0/C:0/R:0", {
+      fontSize: "25px",
+    });
+    this.time.addEvent({
+      delay: 1000,
+      callback: this.timmer,
+      callbackScope: this,
+      loop: true,
+    });
+    this.timeText = this.add.text(600, 16, "Tiempo " + this.timer, {
+      fontSize: "30px",
+    });
   }
 
   update() {
+    if (this.isWinner) {
+      this.scene.start("Winner");
+    }
+    if (this.isGameOver) {
+      this.scene.start("GameOver");
+    }
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-PLAYER_MOVEMENTS.x);
     } else if (this.cursors.right.isDown) {
@@ -75,11 +96,34 @@ export default class Game extends Phaser.Scene {
   collectShape(player, shapeGroup) {
     console.log("figura recolectada");
     shapeGroup.disableBody(true, true);
+    this.shapeName = shapeGroup.texture.key;
+    console.log(this.shapesRecolected);
+    this.shapesRecolected[this.shapeName].count++;
+    this.scoreText.setText(
+      "T:" +
+        this.shapesRecolected[TRIANGULO].count +
+        "/C:" +
+        this.shapesRecolected[CUADRADO].count +
+        "/R:" +
+        this.shapesRecolected[ROMBO].count
+    );
+    if (
+      this.shapesRecolected[TRIANGULO].count >= 2 &&
+      this.shapesRecolected[CUADRADO].count >= 2 &&
+      this.shapesRecolected[ROMBO].count >= 2
+    ) {
+      this.isWinner = true;
+    }
   }
   addShape() {
     const randomShape = Phaser.Math.RND.pick(SHAPES);
     const randomX = Phaser.Math.RND.between(0, 800);
     this.shapeGroup.create(randomX, 0, randomShape);
     console.log("shape is added", randomX, randomShape);
+  }
+  timmer() {
+    this.timer--;
+    console.log(this.timer);
+    this.timeText.setText("Tiempo " + this.timer);
   }
 }
