@@ -41,6 +41,7 @@ export default class Game extends Phaser.Scene {
       .create(400, 568, "platform")
       .setScale(2)
       .refreshBody();
+      
 
     this.physics.add.collider(this.player, this.platformasPropias);
     this.shapeGroup = this.physics.add.group();
@@ -113,7 +114,9 @@ export default class Game extends Phaser.Scene {
       this.shapesRecolected[ROMBO].count >= 2
     ) {
       this.isWinner = true;
+     
     }
+    
   }
   addShape() {
     const randomShape = Phaser.Math.RND.pick(SHAPES);
@@ -125,5 +128,8 @@ export default class Game extends Phaser.Scene {
     this.timer--;
     console.log(this.timer);
     this.timeText.setText("Tiempo " + this.timer);
+    if(this.timer==0){
+      this.isGameOver= true;
+    }
   }
 }

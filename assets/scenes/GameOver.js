@@ -8,7 +8,7 @@ export default class GameOver extends Phaser.Scene {
   preload() {}
 
   create() {
-    this.scoreText = this.add.text(16, 16, "Has perdido", {
+    this.scoreText = this.add.text(310, 300, "Has perdido", {
       fontSize: "25px",
       fill: "#37EAE0",
     });
