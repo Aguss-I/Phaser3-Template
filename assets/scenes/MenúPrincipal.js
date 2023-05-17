@@ -6,10 +6,10 @@ export default class MenúPrincipal extends Phaser.Scene {
     init(){}
 
     preload(){
-        this.load.image("FondoMenu", "/assets/Images/FondoMenu.jpg");
-        this.load.image("botoninicio","/assets/Images/botoninicio.png");
-        this.load.image("katana","/assets/Images/Katana.png");
-        this.load.image("Titulo","/assets/Images/Title2.png");
+        this.load.image("FondoMenu", "./assets/Images/FondoMenu.jpg");
+        this.load.image("botoninicio","./assets/Images/botoninicio.png");
+        this.load.image("katana","./assets/Images/Katana.png");
+        this.load.image("Titulo","./assets/Images/Title2.png");
         
     }
     create(){
