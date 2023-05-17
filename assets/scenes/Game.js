@@ -38,11 +38,19 @@ export default class Game extends Phaser.Scene {
     this.load.image(CUADRADO, "/assets/images/Cuadrado.png");
     this.load.image(ROMBO, "/assets/images/Rombo.png");
     this.load.image(CRUZ,"/assets/Images/Cruz.png");
+    this.load.image("Pausa","./assets/Images/Pausa.png");
+
     
     
   }
 
   create() {
+    const pauseButton = this.add.image(390, 30, "Pausa").setScale(0.1);
+    pauseButton.setInteractive();
+    pauseButton.on("pointerup", () => {
+        this.scene.pause();
+      });
+
     this.add.image(400, 300, "sky").setScale(0.555);
 
     this.player = this.physics.add.sprite(340, 400, "Ninja");
@@ -131,6 +139,18 @@ export default class Game extends Phaser.Scene {
     if (this.cursors.up.isDown && this.player.body.touching.down) {
       this.player.setVelocityY(-PLAYER_MOVEMENTS.y);
     }
+    if (this.scene.isPaused()) {
+      // Detener el movimiento y la interacción de los objetos del juego
+      // Ejemplo:
+      this.player.setVelocityX(0);
+      this.player.setVelocityY(0);
+      this.shapeGroup.setVelocityX(0);
+      this.shapeGroup.setVelocityY(0);
+      this.shapeGroup.setAll("interactive", false);
+  } else {
+      // Actualizar el juego normalmente
+      // ...
+  }
   }
   collectShape(player, shapeGroup) {
     console.log("figura recolectada");
