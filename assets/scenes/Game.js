@@ -11,7 +11,7 @@ import {
 } from "../scenes/util.js";
 export default class Game extends Phaser.Scene {
   constructor() {
-    super("game");
+    super("Game");
   }
 
   init() {
@@ -31,13 +31,14 @@ export default class Game extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("sky", "/assets/images/Cielo.png");
+    this.load.image("sky", "/assets/images/Cielo.jpg");
     this.load.image("platform", "/assets/images/platform.png");
     this.load.image("Ninja", "/assets/images/Ninja.png");
     this.load.image(TRIANGULO, "/assets/images/Triangulo.png");
     this.load.image(CUADRADO, "/assets/images/Cuadrado.png");
     this.load.image(ROMBO, "/assets/images/Rombo.png");
     this.load.image(CRUZ,"/assets/Images/Cruz.png");
+    
     
   }
 
@@ -109,6 +110,8 @@ export default class Game extends Phaser.Scene {
       null,
       this
     )
+    
+    
     }
 
   update() {
@@ -135,7 +138,7 @@ export default class Game extends Phaser.Scene {
     const shapeName = shapeGroup.texture.key;
     const percentage = shapeGroup.getData(POINTS_PERCENTAGE);
     const scoreNow = this.shapesRecolected[shapeName].score * percentage;
-    this.score= this.score+ scoreNow
+    this.score= this.score + scoreNow
     console.log(this.shapesRecolected);
     this.shapesRecolected[shapeName].count++;
     this.scoreText.setText(

@@ -1,6 +1,7 @@
 import GameOver from "./assets/scenes/GameOver.js";
-import GameJs from "./assets/scenes/Game.js";
+import Game from "./assets/scenes/Game.js";
 import Winner from "./assets/scenes/Winner.js";
+import MenúPrincipal from "./assets/scenes/MenúPrincipal.js";
 
 // Create a new Phaser config object
 const config = {
@@ -29,7 +30,7 @@ const config = {
   // List of scenes to load
   // Only the first scene will be shown
   // Remember to import the scene before adding it to the list
-  scene: [GameJs, GameOver, Winner],
+  scene: [MenúPrincipal,Game, GameOver, Winner],
 };
 
 // Create a new Phaser game instance
