@@ -6,7 +6,7 @@ export default class Winner extends Phaser.Scene {
   init() {}
 
   preload() {
-    this.load.image("win","/assets/images/win.png");
+    this.load.image("win","./assets/images/win.png");
   }
 
   create() {

@@ -6,7 +6,7 @@ export default class GameOver extends Phaser.Scene {
   init() {}
 
   preload() {
-    this.load.image("gameover", "/assets/images/gameover.jpg");
+    this.load.image("gameover", "./assets/images/gameover.jpg");
   }
 
   create() {
